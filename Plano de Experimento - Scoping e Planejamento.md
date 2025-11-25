@@ -61,19 +61,57 @@ Base conceitual: code smells como indicadores de dívida técnica; métricas de 
 
 ### 3.1 Objetivo geral (Goal template)
 
-Preencha o objetivo geral usando um template claro (por exemplo, GQM), deixando explícito o que será analisado, com qual propósito, sob qual perspectiva e em qual contexto.
+- **Objeto de estudo:** Técnicas de detecção de *code smells* (Ferramenta Automática vs Inspeção Humana).  
+- **Propósito:** Avaliar a eficácia, precisão e custo operacional de ambas as abordagens.  
+- **Foco da análise:** Precisão, recall, esforço (tempo) e concordância entre métodos.  
+- **Ponto de vista:** Pesquisador acadêmico e desenvolvedores responsáveis por revisões de código.  
+- **Contexto:** Projetos Java de código aberto e participantes com experiência intermediária em revisão de código.
+
+Avaliar comparativamente a eficácia e o custo de uso de uma ferramenta automática de detecção de *code smells* em relação à inspeção humana, visando compreender diferenças de desempenho e esforço em um contexto de repositórios Java de código aberto.
 
 ### 3.2 Objetivos específicos
 
-Decomponha o objetivo geral em metas mais focadas (O1, O2, etc.), que descrevam resultados concretos de aprendizado ou decisão que o experimento deve gerar.
+- **O1:** Comparar a precisão da ferramenta automática com a inspeção humana.  
+- **O2:** Analisar o recall de cada abordagem para diferentes tipos de *code smells*.  
+- **O3:** Avaliar o tempo necessário para a realização da inspeção humana e da análise automatizada.  
+- **O4:** Medir a concordância entre a classificação da ferramenta e dos participantes humanos.
 
 ### 3.3 Questões de pesquisa / de negócio
 
-Formule perguntas claras que o experimento deverá responder (Q1, Q2, etc.), em linguagem que faça sentido para os stakeholders técnicos e de negócio.
+| Objetivo | Perguntas | Métricas |
+|---------|-----------|----------|
+| **O1** | Q1. A precisão da ferramenta é maior, igual ou menor que a precisão humana? | M1, M2 |
+| | Q2. Quais tipos de *code smells* apresentam maior divergência de precisão entre métodos? | M3, M4 |
+| | Q3. Há diferença estatisticamente significativa na precisão? | M1, M5 |
+| **O2** | Q4. Qual abordagem detecta mais *code smells* reais? | M6, M7 |
+| | Q5. Em quais *smells* o recall humano é superior ao da ferramenta? | M7, M8 |
+| | Q6. Existe diferença de recall por categoria de smell? | M6, M9 |
+| **O3** | Q7. Quanto tempo cada abordagem leva em média? | M10, M11 |
+| | Q8. Há variação de tempo entre participantes? | M11, M12 |
+| | Q9. A ferramenta reduz esforço operacional? | M10, M12 |
+| **O4** | Q10. Qual o nível de concordância entre ferramenta e humanos? | M13, M14 |
+| | Q11. Quais smells têm maior discordância? | M14, M3 |
+| | Q12. A concordância varia por complexidade do módulo analisado? | M15, M13 |
 
 ### 3.4 Métricas associadas (GQM)
 
-Associe a cada questão as métricas que serão usadas para respondê-la, com nome, definição, unidade e fonte dos dados, garantindo alinhamento entre G, Q e M.
+| Métrica | Descrição | Unidade |
+|--------|-----------|---------|
+| **M1 – Precisão (Precision)** | TP / (TP + FP) | % |
+| **M2 – Falsos Positivos** | Smells apontados indevidamente | contagem |
+| **M3 – Precisão por tipo de smell** | Precisão específica por categoria | % |
+| **M4 – Divergência por tipo de smell** | Discordância entre humano e ferramenta | contagem |
+| **M5 – p-valor (teste estatístico)** | Significância da diferença de precisão | p |
+| **M6 – Recall** | TP / (TP + FN) | % |
+| **M7 – Detecções totais corretas** | Número total de smells realmente encontrados | contagem |
+| **M8 – Recall por tipo de smell** | Análise por categoria | % |
+| **M9 – FN por categoria** | Falsos negativos por smell | contagem |
+| **M10 – Tempo total por método** | Duração total da análise | minutos |
+| **M11 – Tempo médio por arquivo** | Tempo dividido por número de arquivos | minutos |
+| **M12 – Variação do tempo (desvio padrão)** | Dispersão entre participantes | minutos |
+| **M13 – Coeficiente Kappa** | Concordância estatística | índice (-1 a 1) |
+| **M14 – Discordância total** | Casos em que humano e ferramenta divergem | contagem |
+| **M15 – Complexidade (McCabe)** | Complexidade ciclomática do módulo | valor inteiro |
 
 ---
 
@@ -81,23 +119,50 @@ Associe a cada questão as métricas que serão usadas para respondê-la, com no
 
 ### 4.1 Escopo funcional / de processo (incluído e excluído)
 
-Explique claramente o que será coberto (atividades, artefatos, equipes, módulos) e o que ficará fora do experimento, para evitar interpretações divergentes.
+#### Incluído no escopo
+
+- Avaliação comparativa entre ferramenta automática e inspeção humana para detecção de code smells.
+- Análise de módulos Java provenientes de repositórios de código aberto.
+- Coleta de métricas de precisão, recall, tempo de execução e concordância.
+- Execução padronizada da ferramenta automática em ambiente controlado.
+- Inspeção humana realizada por participantes previamente selecionados.
+
+#### Excluído do escopo
+
+- Avaliação de qualidade das recomendações de refatoração.
+- Comparação entre múltiplas ferramentas automáticas.
+- Análise histórica dos repositórios ou mineração longitudinal.
+- Estudos de percepção qualitativa aprofundada.
+- Avaliação de smells de linguagens não Java.
+- Qualquer processo de CI/CD ou execução em ambiente produtivo.
 
 ### 4.2 Contexto do estudo (tipo de organização, projeto, experiência)
 
-Caracterize o contexto em que o estudo ocorrerá: tipo e tamanho de organização, tipo de projeto, criticidade e perfil de experiência dos participantes.
+O estudo é conduzido em um contexto acadêmico de Engenharia de Software, com participantes estudantes de nível intermediário. Os projetos analisados são repositórios Java de código aberto, com módulos de complexidade média e tamanho adequado para inspeção manual. A criticidade é baixa, pois não envolve código de produção, porém o estudo possui relevância científica. Os participantes possuem experiência intermediária em programação Java e revisão de código, permitindo execução confiável das atividades.
 
 ### 4.3 Premissas
 
-Liste as suposições consideradas verdadeiras para o plano funcionar (por exemplo, disponibilidade de ambiente, estabilidade do sistema), mesmo que não possam ser garantidas.
+- Participantes possuem nível intermediário de programação e revisão de código.  
+- A ferramenta selecionada é estável e funcional.  
+- O conjunto de smells selecionados é suficientemente representativo.  
+- Ambiente de execução permanece estável durante a coleta.
 
 ### 4.4 Restrições
 
-Registre limitações práticas como tempo, orçamento, ferramentas, acessos ou regras organizacionais que impõem limites ao desenho.
+- Tempo disponível reduzido para execução das sessões experimentais.
+- Amostra limitada ao número de estudantes participantes da disciplina.
+- Dependência de um ambiente computacional padronizado.
+- Uso obrigatório de apenas uma ferramenta automática.
+- Acesso exclusivamente a repositórios públicos.
+- Ausência de orçamento para ferramentas pagas ou ambientes premium.
 
 ### 4.5 Limitações previstas
 
-Explique fatores que podem prejudicar a generalização dos resultados (validez externa), como contexto muito específico ou amostra pouco representativa.
+- Baixa generalização devido ao uso de estudantes, não profissionais.
+- Restrição à linguagem Java, não abrangendo outros ecossistemas.
+- Projetos selecionados podem não representar sistemas de larga escala.
+- Variabilidade na interpretação humana dos smells, mesmo com treinamento.
+- Tamanho reduzido da amostra impede testes estatísticos complexos.
 
 ---
 
@@ -105,15 +170,25 @@ Explique fatores que podem prejudicar a generalização dos resultados (validez 
 
 ### 5.1 Stakeholders principais
 
-Liste os grupos ou papéis que têm interesse ou serão impactados pelo experimento (por exemplo, devs, QA, produto, gestores, clientes internos).
+- Estudantes / participantes do experimento  
+- Pesquisadores / autor do estudo  
+- Comunidade acadêmica  
+- Times de desenvolvimento e qualidade (usuários de ferramentas de detecção)
 
 ### 5.2 Interesses e expectativas dos stakeholders
 
-Descreva o que cada grupo espera obter do experimento (insights, evidências, validação de decisão, mitigação de risco, etc.).
+- **Estudantes / Participantes:** experiência prática em inspeção de código e uso de ferramentas automáticas.
+- **Pesquisadores / Autor:** evidências empíricas para análise comparativa de técnicas e apoio ao TCC.
+- **Comunidade acadêmica:** dados replicáveis e contribuição ao corpo de conhecimento sobre code smells.
+- **Times de desenvolvimento:** subsídios para avaliar adoção ou melhoria de ferramentas de detecção.
 
 ### 5.3 Impactos potenciais no processo / produto
 
-Antecipe como a execução do experimento pode afetar prazos, qualidade, carga de trabalho ou o próprio produto durante e após o estudo.
+- Suporte à decisão sobre uso de ferramentas de detecção automática.
+- Melhoria potencial de processos de revisão de código.
+- Evidências sobre eficácia relativa HUMANO × FERRAMENTA.
+- Redução de esforço operacional caso a ferramenta apresente bom desempenho.
+- Identificação de gaps ou inconsistências na automação.
 
 ---
 
@@ -121,15 +196,29 @@ Antecipe como a execução do experimento pode afetar prazos, qualidade, carga d
 
 ### 6.1 Riscos de alto nível (negócio, técnicos, etc.)
 
-Identifique os principais riscos para negócio e tecnologia (atrasos, falhas de ambiente, indisponibilidade de dados, etc.) em nível macro.
+- **R1:** Participantes com conhecimento insuficiente → risco de baixa validade interna.  
+- **R2:** Ferramenta automática com falhas ou bugs durante execução.  
+- **R3:** Código-fonte selecionado não representar bem a diversidade de smells.  
+- **R4:** Tempo insuficiente dos participantes para completar tarefas.
 
 ### 6.2 Critérios de sucesso globais (go / no-go)
 
-Defina as condições sob as quais o experimento será considerado útil e viável, inclusive critérios que sustentem uma decisão de seguir ou não com mudanças.
+- Coleta completa de todos os dados planejados.  
+- Concordância mínima entre observadores ≥ 0,6 (Kappa).  
+- Pelo menos 80% dos participantes completam todas as tarefas.  
+- Variação de tempo dentro do intervalo esperado (< 20% de desvio padrão).
 
 ### 6.3 Critérios de parada antecipada (pré-execução)
 
-Descreva situações em que o experimento deve ser adiado ou cancelado antes de começar (falta de recursos críticos, reprovação ética, mudanças de contexto).
+O experimento deverá ser adiado ou cancelado antes de sua execução caso qualquer uma das seguintes condições ocorra:
+
+- Indisponibilidade de participantes suficientes, impossibilitando a formação de grupos equilibrados ou reduzindo o poder estatístico abaixo do mínimo aceitável.
+- Falhas críticas na ferramenta automática, como erros de execução recorrentes, incompatibilidades com o ambiente ou resultados inconsistentes que inviabilizem a coleta de dados.
+- Reprovação ética ou pendência de aprovação institucional, impedindo a realização do estudo conforme normas da organização ou comitê responsável.
+- Indisponibilidade do ambiente técnico, incluindo falhas em máquinas, IDEs, repositórios, sistema de controle de versão ou perda de acesso aos projetos analisados.
+- Mudança significativa no escopo ou no contexto acadêmico, como alteração de calendário, realocação de disciplinas ou cancelamento de aulas que inviabilizem a logística planejada.
+- Ausência de recursos mínimos, como instrutores, monitores ou infraestrutura de apoio necessária para orientar os participantes.
+- Identificação de inconsistências graves no protocolo experimental, detectadas durante revisão prévia ou execução do piloto, que comprometam a validade interna ou externa do estudo.
 
 ---
 
