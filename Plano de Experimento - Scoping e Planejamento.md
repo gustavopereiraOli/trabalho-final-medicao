@@ -18,6 +18,12 @@ Histórico:
 
 - v1.0: Criação inicial do plano para Entrega 1 (Identificação, Contexto e Problema).
 
+Versão: v2.0 (25/11/2025)
+
+Histórico:
+
+- v2.0: Atualização do documento de a cordo com a Entrega 2 (Escopo, Objetivo, Stakeholders/Impacto, Riscos de alto nível, premissas e critérios de sucesso).
+
 ### 1.4 Datas (criação, última atualização)
 
 Criação: 21/11/2025
