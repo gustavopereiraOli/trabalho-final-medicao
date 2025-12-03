@@ -232,15 +232,37 @@ O experimento deverá ser adiado ou cancelado antes de sua execução caso qualq
 
 ### 7.1 Modelo conceitual do experimento
 
-Explique, em texto ou esquema, como você acredita que os fatores influenciam as respostas (por exemplo, “técnica A reduz defeitos em relação a B”).
+Modelo proposto: a técnica de detecção (automática vs inspeção humana) influencia diretamente as medidas de desempenho (precisão, recall, F1), bem como o esforço (tempo) requerido. Espera-se que a ferramenta automática apresente menor esforço por arquivo e maior consistência (menor variância de tempo), mas que possa apresentar menor recall em smells subjetivos e maior taxa de falsos positivos em alguns casos. A experiência do sujeito e a complexidade do módulo atuam como covariáveis/variáveis de bloqueio que modulam tanto a performance humana quanto a concordância com a ferramenta.
+
+Esquematicamente:
+
+- Fatores: Técnica (Automática / Humana), Tipo de smell, Complexidade do módulo, Experiência do revisor
+- Respostas: Precisão, Recall, Falsos Positivos, Tempo por arquivo, Coeficiente Kappa (concordância)
+
+Interpretação causal esperada:
+
+- A escolha da técnica altera a sensibilidade (recall) e a especificidade (1 - falsos positivos).
+- A complexidade do módulo aumenta a probabilidade de falsos negativos para ambas as técnicas, especialmente para humanos em módulos muito complexos.
+- A experiência reduz o tempo e pode aumentar a precisão humana.
 
 ### 7.2 Hipóteses formais (H0, H1)
 
-Formule explicitamente as hipóteses nulas e alternativas para cada questão principal, incluindo a direção esperada do efeito quando fizer sentido.
+Serão formuladas hipóteses principais alinhadas aos objetivos O1–O4:
+
+- H01 (Precisão): H0: A precisão média da ferramenta automática é igual à precisão média da inspeção humana. H1: A precisão média difere (bilateral).
+- H02 (Recall): H0: O recall médio da ferramenta automática é igual ao recall médio da inspeção humana. H1: O recall médio difere (bilateral). Em análises secundárias podemos testar direcionalmente (por exemplo, H1a: humano > ferramenta para smells de design complexos).
+- H03 (Tempo): H0: O tempo médio por arquivo é igual entre as técnicas. H1: O tempo médio por arquivo é menor para a técnica automática (unilateral: ferramenta < humano).
+- H04 (Concordância): H0: O coeficiente Kappa entre ferramenta e humanos é igual a 0 (concordância por acaso). H1: Kappa > 0 (concordância maior que acaso). Para interpretação prática requeremos Kappa ≥ 0,6 como limiar de aceitabilidade.
+
+Nível de significância: α = 0,05. Para testes pareados (ex.: McNemar) e testes de diferenças de médias (t pareado ou Wilcoxon), reportaremos também intervalos de confiança de 95%.
 
 ### 7.3 Nível de significância e considerações de poder
 
-Defina o nível de significância (por exemplo, α = 0,05) e comente o que se espera em termos de poder estatístico, relacionando-o ao tamanho de amostra planejado.
+Nível de significância: α = 0,05.
+
+Considerações de poder: dado o caráter prático do estudo (amostra de conveniência com estudantes), espera-se poder moderado. Planeja-se coletar um número de observações (arquivos/módulos analisados) suficiente para detectar diferenças médias de efeito médio (d ≈ 0.5) com poder ≈ 0.8 em testes pareados — isso implica aproximadamente 34 pares de observações. Para a comparação entre técnicas com sujeitos múltiplos, estimativas de poder serão detalhadas no protocolo final e/ou ajustadas após piloto.
+
+Observação: onde o poder for insuficiente usaremos testes não-paramétricos e reportaremos tamanho de efeito e intervalos de confiança em vez de apenas p-valor.
 
 ---
 
@@ -248,7 +270,7 @@ Defina o nível de significância (por exemplo, α = 0,05) e comente o que se es
 
 ### 8.1 Objetos de estudo
 
-Descreva o que será efetivamente manipulado ou analisado (módulos de código, requisitos, tarefas, casos de teste, issues, etc.).
+Objetos de estudo: módulos/arquivos Java selecionados em repositórios open-source de complexidade média (por exemplo, classes com 100–800 linhas, ou métodos com McCabe entre 5–20). Cada objeto será a unidade avaliada quanto à presença/ausência de instâncias de um conjunto predefinido de code smells (p.ex., God Class, Long Method, Feature Envy, Data Class, Shotgun Surgery).
 
 ### 8.2 Sujeitos / participantes (visão geral)
 
@@ -256,23 +278,79 @@ Caracterize em alto nível quem serão os participantes (desenvolvedores, testad
 
 ### 8.3 Variáveis independentes (fatores) e seus níveis
 
-Liste os fatores que serão manipulados (por exemplo, técnica, ferramenta, processo) e indique os níveis de cada um (A/B, X/Y, alto/baixo).
+As principais variáveis independentes (fatores):
+
+- **Técnica (fator principal)**: níveis = {`Automática` (ferramenta X), `Humana` (inspeção manual)}.
+- **Tipo de smell**: níveis = {`God Class`, `Long Method`, `Feature Envy`, `Data Class`, `Shotgun Surgery`} — cada observação será classificada por tipo(es) de smell detectados.
+- **Complexidade do módulo**: níveis = {`Baixa`, `Média`, `Alta`} (baseado em McCabe e tamanho em linhas).
+- **Experiência do avaliador** (para inspeção humana): níveis = {`Baixa` (≤1 ano), `Intermediária` (1–3 anos), `Alta` (>3 anos)} — usada como variável de bloqueio/covariável.
 
 ### 8.4 Tratamentos (condições experimentais)
 
-Descreva claramente cada condição de experimento (grupo controle, tratamento 1, tratamento 2, etc.) e o que distingue uma da outra.
+Tratamentos:
+
+- **T1 – Ferramenta Automática**: executar a ferramenta selecionada (ex.: JDeodorant/DesigniteJava) com configuração padrão; registrar todas as detecções por arquivo, exportar relatórios e medir o tempo de execução.
+- **T2 – Inspeção Humana**: participantes realizam inspeção manual por arquivo seguindo um guia e checklist padronizado; registram detecções e tempo gasto.
+
+Combinação/estrutura: desenho pareado (cada objeto de estudo é avaliado por ambos os tratamentos), contrabalançando a ordem (metade dos casos primeiro recebe T1 depois T2; a outra metade T2→T1) para controlar efeitos de ordem/aprendizado.
 
 ### 8.5 Variáveis dependentes (respostas)
 
-Informe as medidas de resultado que você observará (por exemplo, número de defeitos, esforço em horas, tempo de conclusão, satisfação).
+Principais variáveis dependentes:
+
+- `Precisão (precision)` por técnica (%).
+- `Recall` por técnica (%).
+- `Falsos Positivos` (contagem) por técnica.
+- `Falsos Negativos` (contagem) por técnica.
+- `Tempo total` e `Tempo médio por arquivo` (minutos).
+- `Coeficiente Kappa` (índice de concordância entre técnica automática e humana).
+- `Número de detecções corretas` (TP) por tipo de smell.
+- `Complexidade (McCabe)` — usada como variável auxiliar para análise estratificada.
 
 ### 8.6 Variáveis de controle / bloqueio
 
-Liste fatores que você não está estudando diretamente, mas que serão mantidos constantes ou usados para formar blocos (por exemplo, experiência, tipo de tarefa).
+Variáveis de controle / bloqueio:
+
+- Ambiente de execução da ferramenta (mesma versão, máquina padronizada).
+- Versão do código (snapshot fixo dos repositórios).
+- Checklist/instruções para revisores humanos (mesmo material de suporte).
+- Ordem de avaliação (contrabalançada).
+- Duração máxima permitida por sessão.
 
 ### 8.7 Possíveis variáveis de confusão conhecidas
 
-Identifique fatores que podem distorcer os resultados (como diferenças de contexto, motivação ou carga de trabalho) e que você pretende monitorar.
+Possíveis variáveis de confusão:
+
+- Motivação e fadiga dos participantes (monitorar por questionário curto pré/ pós sessão).
+- Familiaridade prévia com o projeto analisado (avaliar no formulário de perfil).
+- Configurações da ferramenta não equivalentes a práticas reais (usar configurações padrão e documentar).
+- Ambiguidade na definição de smell — mitigar com treinamento e exemplos anotados.
+
+#### Tabela 1 — Variáveis e descrições
+
+| Variável | Tipo | Descrição |
+|---|---:|---|
+| Precisão (Precision) | Dependente | Proporção de detecções corretas sobre todas as detecções (TP / (TP+FP)) |
+| Recall | Dependente | Proporção de defeitos reais detectados (TP / (TP+FN)) |
+| Falsos Positivos | Dependente | Contagem de detecções incorretas atribuídas como smell |
+| Falsos Negativos | Dependente | Contagem de smells reais não detectados |
+| Tempo por arquivo | Dependente | Minutos gastos analisando cada arquivo |
+| Coeficiente Kappa | Dependente | Medida de concordância entre técnica e humanos |
+| Técnica | Independente (fator) | `Automática` vs `Humana` |
+| Tipo de smell | Independente (fator) | Categorias analisadas (God Class, Long Method, etc.) |
+| Complexidade do módulo | Independente (fator/controle) | Baixa/Média/Alta baseada em McCabe |
+| Experiência | Bloqueio | Nível de experiência do revisor humano |
+
+#### Tabela 2 — Fatores, tratamentos e combinações
+
+| Fator | Níveis / Tratamentos | Combinações / Observações |
+|---|---|---|
+| Técnica | `Automática` (T1), `Humana` (T2) | Cada módulo é avaliado por ambos (pareado); ordem contrabalançada |
+| Tipo de smell | `God Class`, `Long Method`, `Feature Envy`, `Data Class`, `Shotgun Surgery` | Análises por categoria (estratificadas) e contagem de detecções por técnica |
+| Complexidade do módulo | `Baixa`, `Média`, `Alta` | Análise estratificada; verificar interação Técnica × Complexidade |
+| Experiência | `Baixa`, `Intermediária`, `Alta` | Usada em análises como covariável e para formar blocos de comparação |
+
+Combinações: o desenho primário é pareado (T1 × T2) aplicado a objetos com variação em Tipo de smell e Complexidade; teremos então observações para cada combinação de (módulo, técnica) e analisaremos interações com Tipo de smell e Complexidade.
 
 ---
 
@@ -280,29 +358,70 @@ Identifique fatores que podem distorcer os resultados (como diferenças de conte
 
 ### 9.1 Tipo de desenho (completamente randomizado, blocos, fatorial, etc.)
 
-Indique qual tipo de desenho será utilizado e justifique brevemente por que ele é adequado ao problema e às restrições.
+Desenho: pareado (within-subjects) com blocos e contrabalanço. Cada objeto de estudo (módulo) será avaliado por ambas as técnicas (Automática e Humana) — isso reduz variabilidade entre módulos e aumenta poder estatístico. Haverá blocos formados por nível de complexidade e experiência; a ordem de aplicação das técnicas será randomizada/contrabalançada para controlar efeitos de ordem e aprendizagem.
 
 ### 9.2 Randomização e alocação
 
-Explique o que será randomizado (sujeitos, tarefas, ordem de tratamentos) e como a randomização será feita na prática (ferramentas, procedimentos).
+Randomização:
+
+- Ordem de aplicação das técnicas por módulo será randomizada (uso de gerador pseudo-aleatório ou planilha com permutações balanceadas).
+- A seleção dos módulos será por amostragem estratificada (por complexidade) a partir do conjunto de repositórios candidatos.
+- Alocação de participantes a sessões será por sorteio/inscrição, buscando balanceamento por nível de experiência.
 
 ### 9.3 Balanceamento e contrabalanço
 
-Descreva como você garantirá que os grupos fiquem comparáveis (balanceamento) e como lidará com efeitos de ordem ou aprendizagem (contrabalanço).
+Contrabalanço:
+
+- Metade dos módulos será avaliada primeiro pela ferramenta e depois pelo humano; a outra metade pela ordem inversa.
+- Se houver N módulos, pareá-los em N/2 pares equivalentes por complexidade e por número esperado de smells, então aplicar ordens opostas.
+
+Balanceamento por experiência:
+
+- Distribuir participantes entre sessões de forma a manter similaridade de média de experiência por sessão.
 
 ### 9.4 Número de grupos e sessões
 
-Informe quantos grupos existirão e quantas sessões ou rodadas cada sujeito ou grupo irá executar, com uma breve justificativa.
+Número de grupos/sessões previstos:
 
----
+- Sessões práticas/piloto: 1–2 sessões com 4–6 participantes para validar protocolo.
+- Sessões experimentais: repetidas em blocos de 4–6 participantes por vez, dependendo da disponibilidade; cada participante realiza inspeção em um subconjunto de módulos (para limitar fadiga) e contribui para observações pareadas.
+
+Cada participante fará inspeção manual de X módulos (ex.: 8–12) e revisará resultados da ferramenta para os mesmos módulos conforme contrabalanço; o número X será definido considerando tempo disponível e objetivo de obter pelo menos 30–40 pares válidos pós-piloto.
 
 ## 10. População, sujeitos e amostragem
 
 ### 10.1 População-alvo
 
-Descreva qual é a população real que você deseja representar com o experimento (por exemplo, “desenvolvedores Java de times de produto web”).
+População-alvo: desenvolvedores Java que realizam revisões de código em projetos de porte médio, especialmente aqueles envolvidos em manutenção evolutiva; na prática, a amostra será composta por estudantes de Engenharia de Software com experiência prática em Java (amostra de conveniência ligada à disciplina/projeto).
 
 ### 10.2 Critérios de inclusão de sujeitos
+
+Critérios de inclusão (sujeitos):
+
+- Experiência mínima com Java (programação acadêmica / prática) — preferencialmente ao menos 6 meses de uso.
+- Disponibilidade para completar a sessão experimental (tempo estimado por participante informado no consentimento).
+- Assinatura do termo de consentimento informado.
+
+### 10.3 Critérios de exclusão de sujeitos
+
+- Falta de conhecimento básico em Java (auto-relatado e verificado por breve questionário).
+- Conflito de interesse com os repositórios analisados (ex.: autor/colaborador direto dos projetos selecionados).
+
+### 10.4 Tamanho da amostra planejado (por grupo)
+
+Plano preliminar: recrutar entre 20–40 participantes (amostra de conveniência). O foco principal é obter 30–40 pares válidos de avaliações módulo×técnica para as análises principais. O número final será ajustado com base no piloto e na disponibilidade de participantes.
+
+### 10.5 Método de seleção / recrutamento
+
+Recrutamento por convite em disciplinas relacionadas, listas de e-mail da faculdade e grupos de estudo; amostra por conveniência com tentativa de balanceamento por nível de experiência.
+
+### 10.6 Treinamento e preparação dos sujeitos
+
+Treinamento:
+
+- Sessão de orientação (~30–45 minutos) com definição de code smells, exemplos anotados e prática guiada (2–3 exemplos) antes das sessões reais.
+- Material de apoio: guia rápido (1–2 páginas) com definições e checklist que os participantes usarão durante inspeção.
+- Teste de conhecimento rápido (p.ex., 5 questões) para verificar assimilação do treinamento.
 
 Especifique os requisitos mínimos para um participante ser elegível (experiência, conhecimento, papel, disponibilidade, etc.).
 
@@ -328,19 +447,51 @@ Descreva qual treinamento ou material preparatório será fornecido para nivelar
 
 ### 11.1 Instrumentos de coleta (questionários, logs, planilhas, etc.)
 
-Liste todos os instrumentos que serão usados para coletar dados (arquivos, formulários, scripts, ferramentas), com uma breve descrição do papel de cada um.
+Instrumentos previstos:
+
+- **Ferramenta automática (ex.: JDeodorant / DesigniteJava)**: gerar relatórios de detecções por arquivo (export CSV/JSON) — registra local das detecções e tipo de smell.
+- **Checklist/planilha de inspeção humana (Google Sheets / Excel)**: formulário para que participantes registrem detecções, tipo de smell, justificativa breve e tempo inicial/final.
+- **Script de logging**: script simples para padronizar a execução da ferramenta e coletar tempo de execução (quando aplicável).
+- **Questionários pré e pós sessão**: coleta de dados demográficos, experiência, fadiga e percepção sobre a tarefa/ferramenta.
+- **Planilha-mestre (dataset)**: consolida TP/FP/FN por observação, tempo, complexidade e demais variáveis para análises.
+- **Ferramenta de anotação de verdade-terreno (ground truth)**: para o piloto, equipe de referência fará anotações manuais consenso para gerar o ground-truth usado em cálculo de TP/FN.
 
 ### 11.2 Materiais de suporte (instruções, guias)
 
-Descreva as instruções escritas, guias rápidos, slides ou outros materiais que serão fornecidos a participantes e administradores do experimento.
+Materiais de suporte:
+
+- Guia rápido de identificação de smells (definições e exemplos) — entregue aos participantes.
+- Slides de treinamento com exemplos anotados.
+- Script passo-a-passo para execução da ferramenta (para administradores).
+- Formulário de consentimento informado.
+- Cronograma de sessões e instruções logísticas.
 
 ### 11.3 Procedimento experimental (protocolo – visão passo a passo)
 
-Escreva, em ordem, o que acontecerá na operação (do convite ao encerramento), de modo que alguém consiga executar o experimento seguindo esse roteiro.
+Procedimento operacional (passo a passo):
+
+1. Recrutamento e inscrição: envio de convite, triagem por critérios e coleta do consentimento informado.
+2. Pré-sessão: participante responde questionário demográfico e de experiência; recebe material de apoio.
+3. Treinamento: sessão de 30–45 minutos com exemplos e exercício prático (piloto) — validação mínima de entendimento.
+4. Alocação de módulos: atribuir subconjunto de módulos a cada participante, com ordem contrabalançada de tratamentos.
+5. Execução da primeira técnica: participante realiza a atividade (ou a ferramenta é executada) — registra-se tempo e resultados.
+6. Intervalo curto (5–10 minutos) para reduzir efeitos de fadiga quando aplicável.
+7. Execução da segunda técnica para os mesmos módulos (contrabalanço garante ordem inversa para parte do conjunto).
+8. Pós-sessão: participante responde questionário de percepção/fadiga; verificação de dados coletados e upload de planilha.
+9. Consolidação: equipe gera ground-truth (pelo menos para subconjunto) e consolida TP/FP/FN.
+10. Análise preliminar e verificação de qualidade dos dados; se necessário, recontato do participante para esclarecimentos.
+
+#### Fluxograma operacional (visão geral)
+
+![Fluxograma](fluxograma.PNG)
 
 ### 11.4 Plano de piloto (se haverá piloto, escopo e critérios de ajuste)
 
-Indique se um piloto será realizado, com que participantes e objetivos, e defina que tipo de ajuste do protocolo poderá ser feito com base nesse piloto.
+Piloto:
+
+- Escopo: 1–2 sessões com 4–6 participantes representativos (níveis variados de experiência).
+- Objetivos: validar tempo por tarefa, clareza do guia, funcionamento dos instrumentos (planilhas, scripts e export da ferramenta), e estimar variância para cálculo de tamanho de amostra.
+- Critérios de ajuste: se tempo médio por participante exceder 90 minutos, reduzir número de módulos por sessão; ajustar checklist se alta variabilidade de interpretação; ajustar configuração da ferramenta se gerar muitos resultados irrelevantes.
 
 ---
 
@@ -348,19 +499,45 @@ Indique se um piloto será realizado, com que participantes e objetivos, e defin
 
 ### 12.1 Estratégia geral de análise (como responderá às questões)
 
-Explique, em alto nível, como os dados coletados serão usados para responder cada questão de pesquisa ou de negócio.
+Estratégia geral:
+
+- Calcular métricas por observação (arquivo × técnica): TP, FP, FN, Precision, Recall, F1, Tempo.
+- Para comparação entre técnicas usar análises pareadas (mesmo módulo): McNemar para discrepâncias binárias (detectou/não detectou por smell) e teste t pareado ou Wilcoxon para diferenças de tempo/precision quando apropriado.
+- Calcular Kappa para concordância entre ferramenta e humano em nível de detecção por smell.
+- Realizar análises estratificadas por Tipo de smell e por Complexidade do módulo para identificar interações e padrões.
+- Reportar p-valores, intervalos de confiança de 95% e tamanhos de efeito (Cohen's d ou odds ratio conforme o caso).
 
 ### 12.2 Métodos estatísticos planejados
 
-Liste os principais testes ou técnicas estatísticas que pretende usar (por exemplo, t-teste, ANOVA, testes não paramétricos, regressão).
+Testes e técnicas:
+
+- **McNemar test**: comparar detecção binária (presença/ausência) entre técnicas no nível do par (mesmo módulo).
+- **Teste t pareado** ou **Wilcoxon signed-rank**: comparar tempos médios e métricas contínuas pareadas.
+- **Chi-square / Fisher Exact**: comparar proporções quando amostras não emparelhadas ou contagens por categoria.
+- **Coeficiente Kappa**: avaliar concordância categórica entre técnica e humanos.
+- **Regressão logística** (modelos mistos se necessário): modelar probabilidade de detecção correta com covariáveis (técnica, complexidade, experiência).
+- **ANOVA / modelos mistos**: para analisar efeitos de interação (Técnica × Tipo de smell × Complexidade) quando apropriado.
+- **Correções para múltiplos testes** (p.ex., Benjamini-Hochberg) quando necessário.
 
 ### 12.3 Tratamento de dados faltantes e outliers
 
-Defina previamente as regras para lidar com dados ausentes e valores extremos, evitando decisões oportunistas após ver os resultados.
+Política para dados faltantes e outliers:
+
+- Dados faltantes por participante: tentar recuperação por contato; se não possível, excluir as observações incompletas da análise pareada, reportando o número de exclusões e realizar análise de sensibilidade.
+- Outliers de tempo: definir limites plausíveis (p.ex., z-score > 3 ou tempo > 3× mediana) e investigar manualmente; manter ou excluir com justificativa documentada.
+- Missing-at-random: considerar imputação simples (média/median) apenas para variáveis auxiliares; para variáveis resposta evitar imputação e tratar por análise de sensibilidade.
 
 ### 12.4 Plano de análise para dados qualitativos (se houver)
 
-Descreva como você tratará dados qualitativos (entrevistas, comentários, observações), especificando a técnica de análise (codificação, categorias, etc.).
+Análise qualitativa:
+
+- Comentários livres dos participantes serão codificados por dois revisores independentes (codificação aberta → axial → categorias), buscando temas recorrentes (dificuldades, percepções de utilidade, sugestões).
+- Relatórios de discrepância entre ferramenta e humano terão análise qualitativa para identificar padrões de erro (ex.: tipos de código que confundem a ferramenta).
+- Sumário descritivo e citações exemplares serão incluídos no relatório final.
+
+--
+
+Fim das adições para Entregas 3 e 4.
 
 ---
 
