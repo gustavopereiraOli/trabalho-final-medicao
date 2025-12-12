@@ -12,22 +12,19 @@ EXP-CS-01
 
 ### 1.3 Versão do documento e histórico de revisão
 
-Versão: v1.0 (21/11/2025)
+Versão atual: v3.1 (11/12/2025)
 
 Histórico:
 
-- v1.0: Criação inicial do plano para Entrega 1 (Identificação, Contexto e Problema).
-
-Versão: v2.0 (25/11/2025)
-
-Histórico:
-
-- v2.0: Atualização do documento de a cordo com a Entrega 2 (Escopo, Objetivo, Stakeholders/Impacto, Riscos de alto nível, premissas e critérios de sucesso).
+- v1.0 (21/11/2025): Criação inicial do plano para Entrega 1 (Identificação, Contexto e Problema).
+- v2.0 (25/11/2025): Atualização do documento de acordo com a Entrega 2 (Escopo, Objetivo, Stakeholders/Impacto, Riscos de alto nível, premissas e critérios de sucesso).
+- v3.0 (11/12/2025): Revisão global do texto, correção de inconsistências e preenchimento completo de todas as seções do template.
+- v3.1 (11/12/2025): Definição final de ferramentas (DesigniteJava), refinamento de metas amostrais e ajustes de formatação para execução.
 
 ### 1.4 Datas (criação, última atualização)
 
 Criação: 21/11/2025
-Última atualização: 21/11/2025 (Entregável 1)
+Última atualização: 11/12/2025 (v3.0 – versão consolidada do plano de experimento)
 
 ### 1.5 Autores (nome, área, contato)
 
@@ -51,7 +48,9 @@ Organizações dependem de revisões de código para identificar code smells que
 
 ### 2.2 Contexto organizacional e técnico
 
-Contexto acadêmico aplicado a repositórios de código aberto (ex.: projetos Java médios de GitHub). Participantes: estudantes com experiência intermediária em desenvolvimento e revisão de código. Tecnologias: linguagem Java, detector automático de code smells (Ferramenta X – a definir, ex.: DesigniteJava / JDeodorant), IDE padrão (IntelliJ/Eclipse), controle de versão Git. Processo experimental: aplicação da ferramenta em um conjunto fixo de módulos seguido de inspeção humana independente.
+Contexto acadêmico aplicado a repositórios de código aberto (ex.: projetos Java médios de GitHub). Participantes: estudantes com experiência intermediária em desenvolvimento e revisão de código. Tecnologias: linguagem Java, detector automático de code smells **DesigniteJava** (versão Community/Academic), IDE padrão (IntelliJ/Eclipse), controle de versão Git. Processo experimental: aplicação da ferramenta em um conjunto fixo de módulos seguido de inspeção humana independente.
+
+[Nota: Ferramenta DesigniteJava selecionada por ser referência atual na detecção de smells em Java e possuir versão acadêmica acessível.]
 
 ### 2.3 Trabalhos e evidências prévias (internos e externos)
 
@@ -274,7 +273,7 @@ Objetos de estudo: módulos/arquivos Java selecionados em repositórios open-sou
 
 ### 8.2 Sujeitos / participantes (visão geral)
 
-Caracterize em alto nível quem serão os participantes (desenvolvedores, testadores, estudantes, etc.), sem ainda entrar em detalhes de seleção.
+Os sujeitos do experimento serão, predominantemente, estudantes de graduação em Engenharia de Software e cursos correlatos, matriculados em disciplinas de programação ou qualidade de software e com experiência prévia em desenvolvimento Java. Esses participantes atuam como revisores de código em um contexto acadêmico controlado, simulando o papel de desenvolvedores que realizam inspeções em projetos de porte médio. Não haverá, neste estudo, contratação de profissionais de mercado, mas o perfil de experiência buscado (nível intermediário) procura aproximar o comportamento observado daquele de desenvolvedores em início de carreira.
 
 ### 8.3 Variáveis independentes (fatores) e seus níveis
 
@@ -409,7 +408,9 @@ Critérios de inclusão (sujeitos):
 
 ### 10.4 Tamanho da amostra planejado (por grupo)
 
-Plano preliminar: recrutar entre 20–40 participantes (amostra de conveniência). O foco principal é obter 30–40 pares válidos de avaliações módulo×técnica para as análises principais. O número final será ajustado com base no piloto e na disponibilidade de participantes.
+Plano preliminar: Meta de recrutamento de 30 participantes (mínimo viável de 20). O foco principal é obter 30–40 pares válidos de avaliações módulo×técnica para as análises principais. O número final será ajustado com base no piloto e na disponibilidade de participantes.
+
+[Nota: Meta de 30 participantes definida para garantir poder estatístico suficiente para testes pareados com tamanho de efeito médio.]
 
 ### 10.5 Método de seleção / recrutamento
 
@@ -423,23 +424,7 @@ Treinamento:
 - Material de apoio: guia rápido (1–2 páginas) com definições e checklist que os participantes usarão durante inspeção.
 - Teste de conhecimento rápido (p.ex., 5 questões) para verificar assimilação do treinamento.
 
-Especifique os requisitos mínimos para um participante ser elegível (experiência, conhecimento, papel, disponibilidade, etc.).
-
-### 10.3 Critérios de exclusão de sujeitos
-
-Liste condições que impedem participação (conflitos de interesse, falta de skills essenciais, restrições legais ou éticas).
-
-### 10.4 Tamanho da amostra planejado (por grupo)
-
-Defina quantos participantes você pretende ter no total e em cada grupo, relacionando a decisão com poder, recursos e contexto.
-
-### 10.5 Método de seleção / recrutamento
-
-Explique como os participantes serão escolhidos (amostra de conveniência, sorteio, convite aberto, turma de disciplina, time específico).
-
-### 10.6 Treinamento e preparação dos sujeitos
-
-Descreva qual treinamento ou material preparatório será fornecido para nivelar entendimento e reduzir vieses por falta de conhecimento.
+Esse treinamento tem como objetivo nivelar o conhecimento mínimo necessário sobre o conceito de code smells, padronizar o entendimento das definições operacionais utilizadas no estudo e reduzir vieses decorrentes de falta de familiaridade com a tarefa ou com a ferramenta de apoio. Somente participantes que concluírem o treinamento e atingirem um desempenho mínimo no teste de verificação (por exemplo, acerto de pelo menos 60% das questões) serão considerados aptos a participar das sessões experimentais.
 
 ---
 
@@ -449,8 +434,8 @@ Descreva qual treinamento ou material preparatório será fornecido para nivelar
 
 Instrumentos previstos:
 
-- **Ferramenta automática (ex.: JDeodorant / DesigniteJava)**: gerar relatórios de detecções por arquivo (export CSV/JSON) — registra local das detecções e tipo de smell.
-- **Checklist/planilha de inspeção humana (Google Sheets / Excel)**: formulário para que participantes registrem detecções, tipo de smell, justificativa breve e tempo inicial/final.
+- **Ferramenta automática (DesigniteJava)**: gerar relatórios de detecções por arquivo (export CSV/JSON) — registra local das detecções e tipo de smell.
+- **Checklist/planilha de inspeção humana (Google Sheets)**: formulário para que participantes registrem detecções, tipo de smell, justificativa breve e tempo inicial/final.
 - **Script de logging**: script simples para padronizar a execução da ferramenta e coletar tempo de execução (quando aplicável).
 - **Questionários pré e pós sessão**: coleta de dados demográficos, experiência, fadiga e percepção sobre a tarefa/ferramenta.
 - **Planilha-mestre (dataset)**: consolida TP/FP/FN por observação, tempo, complexidade e demais variáveis para análises.
@@ -545,23 +530,42 @@ Fim das adições para Entregas 3 e 4.
 
 ### 13.1 Validade de conclusão
 
-Liste ameaças que podem comprometer a robustez das conclusões estatísticas (baixo poder, violação de suposições, erros de medida) e como pretende mitigá-las.
+A principal ameaça à validade de conclusão é o baixo poder estatístico decorrente de tamanho de amostra reduzido (número limitado de módulos e de participantes). Isso pode ser mitigado por meio de: (i) desenho pareado, que reduz a variabilidade entre unidades de análise; (ii) planejamento prévio para obter número mínimo de pares de observações (≈ 30–40); e (iii) reporte sistemático de tamanhos de efeito e intervalos de confiança, evitando interpretações baseadas exclusivamente em p-valores.
+
+Outra ameaça relevante é a violação de suposições dos testes estatísticos (normalidade, independência, homocedasticidade), o que pode enviesar os resultados. Para mitigar, serão realizadas verificações exploratórias (histogramas, testes de normalidade, inspeção gráfica de resíduos) e, quando apropriado, serão utilizados testes não-paramétricos (por exemplo, Wilcoxon em vez de t pareado).
+
+Erros de medida nas variáveis de tempo e na classificação de TP/FP/FN também podem comprometer a robustez das conclusões. Para reduzir esse risco, o protocolo estabelece: (i) medição de tempo com apoio de cronômetro ou registro automático sempre que possível; (ii) definição clara das regras de rotulagem de cada instância de smell; e (iii) uso de um conjunto de referência (ground truth) revisado por especialistas para calibrar as análises.
 
 ### 13.2 Validade interna
 
-Identifique ameaças relacionadas a causas alternativas para os efeitos observados (history, maturation, selection, etc.) e explique suas estratégias de controle.
+Entre as ameaças à validade interna destacam-se:
+
+- **History / Maturation:** fadiga, aprendizado ou perda de motivação dos participantes ao longo da sessão podem afetar desempenho e tempo de execução. Para mitigar, serão utilizadas sessões de duração limitada, com pausas programadas, e contrabalanço da ordem dos tratamentos (parte dos módulos avaliada primeiro pela técnica automática, parte pela inspeção humana).
+- **Selection:** diferenças sistemáticas de experiência entre participantes podem influenciar os resultados da inspeção humana. Essa ameaça será controlada por meio de critérios de inclusão, caracterização prévia de experiência (questionário) e, quando possível, balanceamento dos níveis de experiência entre sessões.
+- **Instrumentation:** mudanças na configuração da ferramenta automática ou na forma de registrar dados podem introduzir viés. A mitigação consiste em fixar a versão e as configurações da ferramenta, utilizar scripts padronizados de execução e adotar um único modelo de planilha/checklist para registro das inspeções humanas.
+- **Testing / Order effects:** o contato prévio com os módulos em um tratamento pode influenciar o desempenho no segundo tratamento. O desenho pareado com ordem contrabalançada, além de intervalos entre as técnicas, reduz esse risco.
 
 ### 13.3 Validade de constructo
 
-Refleta se as medidas escolhidas realmente representam os conceitos de interesse e descreva como você reduzirá ambiguidades de interpretação.
+A validade de constructo depende de as métricas adotadas refletirem adequadamente os conceitos de interesse (qualidade da detecção de code smells, esforço, concordância). Precisão, recall, F1, contagens de TP/FP/FN e tempo por arquivo são medidas amplamente aceitas na literatura para avaliar desempenho de detectores e esforço de análise.
+
+Para reduzir ambiguidades, serão definidas operacionalmente as categorias de smells contempladas (por exemplo, God Class, Long Method, Feature Envy), com exemplos positivos e negativos discutidos no treinamento. As instruções de registro para humanos explicitarão quando uma detecção deve ser considerada uma instância válida, bem como como registrar casos de dúvida. O constructo de "concordância" será operacionalizado pelo coeficiente Kappa, calculado sobre a matriz de detecções/ausências por smell e por módulo, alinhado ao entendimento de concordância além do acaso.
 
 ### 13.4 Validade externa
 
-Discuta em que contextos os resultados podem ser generalizados e quais diferenças de cenário podem limitar essa generalização.
+A generalização dos resultados é limitada principalmente pelo contexto experimental: uso de estudantes em ambiente acadêmico, análise de projetos Java de código aberto de porte moderado e foco em um conjunto específico de smells. Entretanto, o perfil dos participantes (experiência intermediária) se aproxima de desenvolvedores júnior de mercado, permitindo inferências prudentes para cenários de manutenção em equipes em formação.
+
+A extrapolação para projetos industriais de grande porte, outras linguagens de programação ou organizações com processos de revisão maduros deve ser feita com cautela. Para facilitar a avaliação da transferibilidade, o plano documenta claramente o contexto, as características dos projetos analisados e o perfil dos participantes, de modo que outros pesquisadores possam comparar com seus próprios cenários.
 
 ### 13.5 Resumo das principais ameaças e estratégias de mitigação
 
-Faça uma síntese das ameaças mais críticas e das ações planejadas, de preferência em forma de lista ou tabela simples.
+Principais ameaças e respectivas estratégias de mitigação:
+
+- **Baixo poder estatístico:** uso de desenho pareado, definição de número mínimo de pares de observações e reporte de tamanhos de efeito.
+- **Fadiga e efeitos de ordem:** limitação da duração das sessões, pausas programadas e contrabalanço da ordem de aplicação das técnicas.
+- **Diferenças de experiência entre participantes:** critérios de inclusão, caracterização prévia de experiência e balanceamento entre sessões, além de análise estratificada por nível de experiência.
+- **Erros de medida (tempo e classificação de smells):** padronização de instrumentos de coleta, treinamento prévio, checklist claro e uso de ground truth para calibração.
+- **Baixa generalização:** documentação detalhada do contexto, dos projetos e do perfil dos participantes, permitindo avaliação crítica da extrapolação para outros ambientes.
 
 ---
 
@@ -569,19 +573,27 @@ Faça uma síntese das ameaças mais críticas e das ações planejadas, de pref
 
 ### 14.1 Questões éticas (uso de sujeitos, incentivos, etc.)
 
-Descreva potenciais questões éticas (pressão para participar, uso de estudantes, incentivos, riscos de exposição) e como serão tratadas.
+O experimento envolve sujeitos humanos (estudantes), o que exige atenção a possíveis pressões indevidas para participação, riscos de exposição de desempenho individual e eventuais conflitos com avaliação acadêmica. A participação será estritamente voluntária, sem qualquer vínculo direto com notas ou aprovação nas disciplinas, e os estudantes poderão desistir a qualquer momento sem prejuízo acadêmico.
+
+Caso sejam oferecidos incentivos (por exemplo, horas de atividades complementares), isso será comunicado de forma transparente, garantindo que o incentivo não configure coerção. Não serão coletadas informações sensíveis além de dados demográficos básicos e experiência profissional/acadêmica. Os resultados serão analisados e divulgados apenas em formato agregado, sem identificação nominal dos participantes.
 
 ### 14.2 Consentimento informado
 
-Explique como os participantes serão informados sobre objetivos, riscos, benefícios e como registrarão seu consentimento.
+Antes de participar, cada sujeito receberá um termo de consentimento informado contendo: objetivos do estudo, procedimentos previstos, duração estimada da sessão, riscos e desconfortos potenciais (por exemplo, fadiga, frustração com a tarefa), benefícios esperados (aprendizado, contribuição para pesquisa) e informações sobre privacidade e uso dos dados.
+
+O termo destacará que a participação é voluntária e que o participante pode retirar seu consentimento a qualquer momento. O consentimento será registrado por meio de assinatura física ou aceite eletrônico, conforme práticas institucionais da universidade. Apenas participantes que assinarem o termo serão incluídos na amostra.
 
 ### 14.3 Privacidade e proteção de dados
 
-Indique que dados pessoais serão coletados, como serão protegidos (anonimização, pseudoanonimização, controle de acesso) e por quanto tempo serão mantidos.
+Serão coletados apenas dados pessoais estritamente necessários: identificação mínima (p.ex., código ou e-mail institucional), informações demográficas básicas (sem dados sensíveis) e métricas de experiência em desenvolvimento. Para análise, os dados serão pseudoanonimizados por meio de códigos de participante, de modo que relatórios e conjuntos de dados não contenham nomes ou identificadores diretos.
+
+Os arquivos contendo a chave de reidentificação e os dados brutos ficarão armazenados em repositório controlado (por exemplo, área restrita em serviço de nuvem institucional), com acesso limitado ao pesquisador principal e, se necessário, ao orientador. O período de retenção dos dados seguirá as políticas institucionais (por exemplo, até 5 anos após conclusão do TCC), após o qual os dados identificáveis poderão ser descartados ou anonimizados de forma permanente.
 
 ### 14.4 Aprovações necessárias (comitê de ética, jurídico, DPO, etc.)
 
-Liste órgãos ou pessoas que precisam aprovar o experimento (comitê de ética, jurídico, DPO, gestores) e o status atual dessas aprovações.
+Por envolver seres humanos, o estudo deverá seguir as diretrizes éticas da instituição de ensino. Quando aplicável, o protocolo será submetido ao comitê de ética em pesquisa ou órgão equivalente, incluindo descrição de instrumentos, termos de consentimento e forma de armazenamento de dados.
+
+Além disso, o plano será revisado e aprovado pelo orientador do TCC e pelo professor responsável pela disciplina na qual o experimento estiver inserido. Não se espera envolvimento direto de áreas jurídicas ou DPO, uma vez que os dados são de natureza acadêmica e de baixo risco, mas qualquer exigência institucional adicional será atendida antes do início da coleta.
 
 ---
 
@@ -589,19 +601,42 @@ Liste órgãos ou pessoas que precisam aprovar o experimento (comitê de ética,
 
 ### 15.1 Recursos humanos e papéis
 
-Identifique os membros da equipe do experimento e descreva brevemente o papel e responsabilidade de cada um.
+Os principais recursos humanos previstos são:
+
+- **Pesquisador principal (PI – estudante):** responsável pelo desenho detalhado do experimento, preparação dos instrumentos, condução das sessões com os participantes, consolidação e análise dos dados e elaboração dos relatórios.
+- **Orientador acadêmico:** supervisiona o desenho do estudo, garante aderência a princípios metodológicos e éticos, revisa o plano, os instrumentos e os resultados, e apoia a interpretação dos achados.
+- **Co-orientador ou monitores (se aplicável):** auxiliam na condução prática das sessões (organização do laboratório, esclarecimento de dúvidas operacionais, aplicação do treinamento) e na conferência de consistência dos dados coletados.
+- **Participantes (estudantes):** executam as tarefas de inspeção humana, interagem com os instrumentos de coleta e respondem aos questionários pré e pós sessão.
 
 ### 15.2 Infraestrutura técnica necessária
 
-Liste ambientes, servidores, ferramentas, repositórios e integrações que devem estar disponíveis para executar o experimento.
+A infraestrutura técnica necessária inclui:
+
+- Laboratório de informática ou ambiente equivalente com máquinas padronizadas (ou notebooks pessoais previamente configurados), dotados de JDK, IDE Java (IntelliJ/Eclipse) e acesso à internet.
+- Ferramenta automática de detecção de code smells selecionada (**DesigniteJava**), instalada e validada previamente.
+- Repositório Git contendo os projetos Java selecionados, preferencialmente hospedado em plataforma como GitHub.
+- Planilhas eletrônicas (Google Sheets/Excel) para registro das inspeções humanas e consolidação dos dados.
+- Scripts e/ou ferramentas auxiliares para execução padronizada da ferramenta e coleta de logs de tempo.
 
 ### 15.3 Materiais e insumos
 
-Relacione materiais físicos ou digitais necessários (máquinas, licenças, formulários, dispositivos) que precisam estar prontos antes da operação.
+Materiais e insumos necessários:
+
+- Computadores ou notebooks devidamente configurados para todos os participantes.
+- Licenças de software, se a ferramenta automática ou IDE utilizada não for gratuita (idealmente, ferramentas gratuitas ou academicamente licenciadas).
+- Formulários de consentimento informado impressos ou em formato digital.
+- Cópias digitais do guia rápido de smells, slides de treinamento e checklists de inspeção.
+- Acesso a contas institucionais de e-mail ou plataformas de comunicação para envio de instruções e links.
 
 ### 15.4 Orçamento e custos estimados
 
-Faça uma estimativa dos principais custos envolvidos (horas de pessoas, serviços, licenças, infraestrutura) e a fonte de financiamento.
+Espera-se que o experimento tenha baixo custo incremental, uma vez que utiliza principalmente infraestrutura e ferramentas já disponíveis na instituição (laboratórios, IDEs gratuitas e repositórios públicos). Os principais custos potenciais concentram-se em:
+
+- Tempo dedicado do pesquisador, orientador e eventuais monitores.
+- Eventuais licenças de ferramentas ou plugins pagos, caso a versão gratuita não seja suficiente (não previsto como obrigatório neste estudo).
+- Custos de impressão de materiais (termos de consentimento, guias rápidos) se não forem utilizados apenas meios digitais.
+
+Os custos serão, em princípio, cobertos pela própria instituição (infraestrutura existente) e pelo esforço voluntário dos envolvidos no TCC, sem necessidade de orçamento financeiro específico.
 
 ---
 
@@ -609,15 +644,32 @@ Faça uma estimativa dos principais custos envolvidos (horas de pessoas, serviç
 
 ### 16.1 Macrocronograma (até o início da execução)
 
-Defina as principais datas e marcos (conclusão do plano, piloto, revisão, início da operação) com uma visão de tempo realista.
+O macrocronograma até o início da execução pode ser sintetizado em fases:
+
+- **Fase 1 – Planejamento e revisão do plano (nov/2025 – dez/2025):** elaboração inicial do plano de experimento, revisões sucessivas com o orientador e aprovação interna.
+- **Fase 2 – Seleção de projetos e preparação de instrumentos (dez/2025 – jan/2026):** escolha dos repositórios Java, configuração da ferramenta automática, construção das planilhas e questionários e preparação do material de treinamento.
+- **Fase 3 – Piloto (jan/2026):** realização de 1–2 sessões piloto com pequeno grupo de participantes, ajustes finos no protocolo e nos instrumentos.
+- **Fase 4 – Revisão pós-piloto e prontidão (fev/2026):** consolidação de ajustes, verificação de infraestrutura e confirmação da disponibilidade de participantes.
+- **Fase 5 – Início da execução plena (após fev/2026):** realização das sessões experimentais conforme cronograma detalhado a ser alinhado com a agenda acadêmica.
 
 ### 16.2 Dependências entre atividades
 
-Indique quais atividades dependem de outras para começar (por exemplo, treinamento após aprovação ética), deixando essas dependências claras.
+As principais dependências são:
+
+- A submissão/aprovação ética (quando requerida) deve ocorrer antes do início do recrutamento formal de participantes.
+- A seleção definitiva dos projetos Java depende da confirmação da ferramenta automática escolhida e de sua compatibilidade com os repositórios candidatos.
+- A preparação do treinamento e dos materiais de apoio deve ser concluída antes da realização do piloto.
+- As sessões piloto devem ocorrer antes das sessões experimentais principais, pois seus resultados podem demandar ajustes no protocolo.
+- A confirmação de datas e horários das sessões com os participantes depende da disponibilidade do laboratório/infraestrutura e da agenda das disciplinas envolvidas.
 
 ### 16.3 Riscos operacionais e plano de contingência
 
-Liste riscos ligados a cronograma, disponibilidade de pessoas ou recursos, e descreva ações de contingência caso esses riscos se materializem.
+Riscos operacionais identificados e estratégias de contingência:
+
+- **Baixa adesão ou desistência de participantes:** ampliar canais de divulgação (turmas adicionais, lista de e-mails), flexibilizar horários de sessão e, se necessário, estender o período de coleta.
+- **Indisponibilidade de laboratório ou problemas de infraestrutura:** prever janelas alternativas de uso do laboratório, possibilitar uso de notebooks pessoais previamente configurados e manter cópias locais dos repositórios e ferramentas.
+- **Atrasos na aprovação ética ou institucional:** iniciar a preparação de instrumentos e materiais em paralelo e ajustar o cronograma de execução caso a aprovação demore mais que o previsto.
+- **Falhas técnicas na ferramenta automática:** realizar testes extensivos antes da coleta, manter versão estável da ferramenta e documentar qualquer limitação, podendo substituir a ferramenta ou ajustar o escopo caso problemas críticos persistam.
 
 ---
 
@@ -625,15 +677,30 @@ Liste riscos ligados a cronograma, disponibilidade de pessoas ou recursos, e des
 
 ### 17.1 Papéis e responsabilidades formais
 
-Defina quem decide, quem executa, quem revisa e quem apenas deve ser informado, deixando claro o fluxo de responsabilidade.
+A governança do experimento será estruturada da seguinte forma:
+
+- **Decisão (accountable):** orientador acadêmico, em conjunto com o pesquisador principal, é responsável por aprovar o desenho final do experimento, eventuais mudanças relevantes e o início da execução.
+- **Execução (responsible):** pesquisador principal conduz as atividades operacionais (recrutamento, treinamento, sessões de coleta, consolidação de dados) e coordena o apoio de monitores.
+- **Revisão (consulted):** orientador e, se houver, co-orientador revisam instrumentos, resultados parciais e relatórios, fornecendo feedback metodológico.
+- **Informados (informed):** participantes, coordenação de curso e demais stakeholders acadêmicos são mantidos informados sobre cronograma, eventuais alterações relevantes e resultados de alto nível.
 
 ### 17.2 Ritos de acompanhamento pré-execução
 
-Descreva as reuniões, checkpoints e revisões previstos antes da execução, incluindo frequência e participantes.
+Serão adotados os seguintes ritos de acompanhamento antes da execução propriamente dita:
+
+- Reuniões periódicas (por exemplo, quinzenais) entre pesquisador principal e orientador para revisar o progresso do plano, discutir decisões de desenho e avaliar riscos.
+- Checkpoints específicos para: (i) validação dos instrumentos de coleta; (ii) conclusão da preparação do material de treinamento; e (iii) aprovação final do protocolo antes da submissão ética (quando aplicável).
+- Registro sucinto das decisões e pendências em ata ou documento compartilhado, garantindo rastreabilidade das mudanças realizadas no plano.
 
 ### 17.3 Processo de controle de mudanças no plano
 
-Explique como mudanças no desenho ou no escopo do experimento serão propostas, analisadas, aprovadas e registradas.
+Qualquer alteração relevante no desenho experimental, escopo, instrumentos ou protocolo operacional deverá seguir um processo explícito de controle de mudanças:
+
+1. O pesquisador principal documenta a proposta de mudança (justificativa, impacto esperado, riscos) em um registro de alterações.
+2. A proposta é discutida com o orientador (e co-orientador, se houver), que avaliam impactos metodológicos e éticos.
+3. Mudanças aprovadas são incorporadas ao plano de experimento, com atualização de versão e histórico de revisão na seção de identificação básica.
+4. Quando necessário, participantes e demais stakeholders são informados das alterações, especialmente se impactarem procedimentos de coleta.
+5. Se a mudança alterar aspectos éticos relevantes, uma emenda pode ser submetida ao comitê de ética antes de sua implementação.
 
 ---
 
@@ -641,15 +708,35 @@ Explique como mudanças no desenho ou no escopo do experimento serão propostas,
 
 ### 18.1 Repositórios e convenções de nomeação
 
-Indique onde o plano, instrumentos, scripts e dados (futuros) serão armazenados e quais convenções de nomes serão usadas.
+O plano de experimento, scripts, instrumentos de coleta e dados consolidados serão mantidos em um repositório Git (por exemplo, GitHub) associado ao TCC. Serão adotadas convenções de nomeação que facilitem a identificação do conteúdo, como:
+
+- `docs/` para documentos de planejamento (plano de experimento, protocolos, termos de consentimento em formato modelo).
+- `instruments/` para questionários, checklists, planilhas de coleta em branco.
+- `scripts/` para automações de execução da ferramenta e tratamento inicial de dados.
+- `data/` com subpastas `raw/` (dados brutos) e `processed/` (dados preparados para análise), respeitando as regras de privacidade definidas.
 
 ### 18.2 Templates e artefatos padrão
 
-Liste os modelos (questionários, formulários, checklists, scripts) que serão usados e onde podem ser encontrados.
+Serão utilizados os seguintes templates e artefatos padrão:
+
+- Modelo de questionário demográfico e de experiência dos participantes.
+- Template de checklist de inspeção humana por módulo/arquivo, com campos para tipo de smell, justificativa sucinta e tempo.
+- Modelo de questionário pós-sessão para percepção e fadiga.
+- Script padrão para execução da ferramenta automática e exportação dos resultados em formato tabular.
+- Planilha-mestre para consolidação de TP/FP/FN, tempos e variáveis de contexto.
+
+Todos esses artefatos serão mantidos na estrutura de pastas acordada no repositório e versionados junto com o restante do material.
 
 ### 18.3 Plano de empacotamento para replicação futura
 
-Descreva o que será organizado desde já (documentos, scripts, instruções) para facilitar a replicação do experimento por outras equipes ou no futuro.
+Para favorecer a reprodutibilidade, o experimento será empacotado com:
+
+- Documentação clara de instalação e uso da ferramenta automática, incluindo versões utilizadas e parâmetros de configuração.
+- Guia passo a passo para replicar o protocolo (desde a seleção de projetos até a análise estatística), com exemplos de comandos e instruções para geração do dataset final.
+- Scripts de análise (por exemplo, em R ou Python) documentados, permitindo recalcular as principais métricas e testes estatísticos a partir dos dados processados.
+- Versões anonimizadas dos dados (quando permitido) e exemplos de saída dos instrumentos, facilitando a compreensão do formato esperado.
+
+Esses materiais permitirão que outros pesquisadores reproduzam ou adaptem o experimento em contextos semelhantes, avaliando a robustez dos resultados.
 
 ---
 
@@ -657,15 +744,30 @@ Descreva o que será organizado desde já (documentos, scripts, instruções) pa
 
 ### 19.1 Públicos e mensagens-chave pré-execução
 
-Liste os grupos que precisam ser comunicados e quais mensagens principais devem receber (objetivos, escopo, datas, impactos esperados).
+Os principais públicos e mensagens pré-execução são:
+
+- **Participantes potenciais (estudantes):** objetivos gerais do estudo, escopo das atividades, carga horária estimada, natureza voluntária da participação e eventuais benefícios (aprendizado, certificado, horas complementares).
+- **Coordenação de curso e professores das disciplinas envolvidas:** motivação acadêmica, alinhamento com objetivos de aprendizagem, cronograma proposto e uso da infraestrutura.
+- **Orientador e co-orientador:** versões atualizadas do plano, riscos identificados e necessidade de decisões ou aprovações adicionais.
 
 ### 19.2 Canais e frequência de comunicação
 
-Defina por quais canais (e-mail, reuniões, Slack/Teams, etc.) e com que frequência as comunicações serão feitas.
+Serão utilizados principalmente os seguintes canais de comunicação:
+
+- E-mail institucional para convites formais, envio de instruções e links para instrumentos online.
+- Ambientes virtuais de aprendizagem (por exemplo, Moodle ou sistema da universidade) e/ou grupos de mensagens (Teams/Slack) para avisos complementares aos alunos.
+- Reuniões presenciais ou virtuais periódicas entre pesquisador e orientador para acompanhamento do progresso do experimento.
+
+A frequência de comunicação com os participantes será maior nas fases de recrutamento e imediatamente antes das sessões (lembretes), reduzindo-se após a conclusão das atividades para comunicações pontuais sobre resultados agregados.
 
 ### 19.3 Pontos de comunicação obrigatórios
 
-Especifique os eventos que exigem comunicação formal (aprovação do plano, mudanças relevantes, adiamentos, cancelamentos).
+Serão considerados pontos de comunicação obrigatórios:
+
+- Divulgação da aprovação e versão final do plano de experimento antes do início do recrutamento.
+- Comunicação de qualquer mudança relevante de cronograma, escopo ou procedimentos que impacte diretamente os participantes (por exemplo, alteração de datas ou formato das sessões).
+- Notificações de adiamento ou cancelamento de sessões experimentais já agendadas.
+- Comunicação, ao final do estudo, de um resumo dos resultados agregados aos participantes e à coordenação do curso, reforçando o caráter científico e educacional da iniciativa.
 
 ---
 
@@ -673,8 +775,22 @@ Especifique os eventos que exigem comunicação formal (aprovação do plano, mu
 
 ### 20.1 Checklist de prontidão (itens que devem estar completos)
 
-Liste os itens que precisam estar finalizados e aprovados (plano, instrumentos, aprovação ética, recursos, comunicação) para autorizar o início da operação.
+Os principais itens que devem estar concluídos e aprovados antes do início da execução são:
+
+- Plano de experimento revisado e aprovado pelo orientador (e, se aplicável, pelo comitê de ética).
+- Instrumentos de coleta (questionários, planilhas, checklists) finalizados, revisados e testados em piloto.
+- Ferramenta automática instalada, configurada e validada nos ambientes que serão utilizados.
+- Seleção definitiva dos projetos Java e preparação dos repositórios em estado estável (snapshot congelado).
+- Infraestrutura técnica confirmada (laboratório reservado, máquinas configuradas, acesso a redes e repositórios).
+- Materiais de treinamento finalizados e revisados.
+- Mensagens e canais de comunicação preparados para recrutamento e instruções aos participantes.
 
 ### 20.2 Aprovações finais para iniciar a operação
 
-Indique quem precisa dar o “ok final” (nomes ou cargos) e como esse aceite será registrado antes da execução começar.
+Para o início da operação, serão necessárias as seguintes aprovações formais:
+
+- Aceite do orientador acadêmico quanto à versão final do plano e dos instrumentos, registrado por meio de e-mail ou assinatura em documento específico.
+- Aprovação, quando exigida, do comitê de ética em pesquisa ou órgão institucional equivalente, com protocolo devidamente registrado.
+- Concordância do professor responsável pela disciplina em que o experimento será conduzido, especialmente no que diz respeito ao uso de tempo de aula ou atividades extraclasse.
+
+Somente após o registro explícito dessas aprovações o experimento será considerado "pronto para execução" e o recrutamento/agenda das sessões será efetivamente iniciado.
